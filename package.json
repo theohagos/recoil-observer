@@ -1,7 +1,7 @@
 {
   "name": "@theohagos/recoil-observer",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/theohagos"
+    "registry": "https://registry.npmjs.org/"
   },
   "version": "0.1.0",
   "description": "A recoil state observer through Redux devtool",
@@ -14,7 +14,7 @@
     "lint:fix": "eslint --config .eslintrc.js src/**/*.{js,jsx,ts,tsx} --format table --fix",
     "prettier": "prettier --write \"**/*.tsx\""
   },
-  "author": "Theo Hagos",
+  "author": "theohagos",
   "license": "MIT",
   "dependencies": {
     "react": "^17.0.2",

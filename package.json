@@ -1,18 +1,25 @@
 {
-  "name": "@YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME",
+  "name": "@theohagos/recoil-observer",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/YOUR_REPOSITORY_NAME"
+    "registry": "https://npm.pkg.github.com/theohagos"
   },
   "version": "0.1.0",
-  "description": "A simple template for a custom React component library",
+  "description": "A recoil state observer through Redux devtool",
+  "repository": "https://github.com/theohagos/recoil-observer.git",
   "scripts": {
     "rollup": "rollup -c",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lint:fix": "eslint --config .eslintrc.js src/**/*.{js,jsx,ts,tsx} --format table --fix",
+    "prettier": "prettier --write \"**/*.tsx\""
   },
-  "author": "YOUR_NAME",
-  "license": "ISC",
+  "author": "Theo Hagos",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^17.0.2",
+    "recoil": "^0.6.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
@@ -31,13 +38,22 @@
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.2",
     "@types/react": "^17.0.34",
+    "@typescript-eslint/eslint-plugin": "^5.12.1",
+    "@typescript-eslint/parser": "^5.12.1",
     "babel-jest": "^27.3.1",
     "babel-loader": "^8.2.3",
     "css-loader": "^6.5.1",
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-formatter-table": "^7.32.1",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.2",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.3.1",
-    "react": "^17.0.2",
+    "prettier": "2.5.1",
     "rollup": "^2.60.0",
     "rollup-plugin-dts": "^4.0.1",
     "rollup-plugin-postcss": "^4.0.1",
@@ -45,6 +61,10 @@
     "sass-loader": "^12.3.0",
     "style-loader": "^3.3.1",
     "typescript": "^4.4.4"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "recoil": "^0.6.1"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

@@ -1,0 +1,7 @@
+.storybook
+src/stories
+*.test*
+/node_modules
+/build
+/dist
+.stories

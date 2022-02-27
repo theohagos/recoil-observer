@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Snapshot, useGotoRecoilSnapshot, useRecoilSnapshot} from 'recoil';
 
 const withDevTool =
@@ -12,21 +12,21 @@ interface RetainedSnapshot {
   snapshot: Snapshot;
 }
 
-function RecoilObserver({
+const RecoilObserver = ({
   exclude = [],
   name = 'Recoil State Observer',
   maxAge = 100,
   trace = true
 }: {
   exclude?: string[];
-  name: string;
-  maxAge: number;
-  trace: boolean;
-}) {
-  const snapshot: Snapshot = useRecoilSnapshot();
+  name?: string;
+  maxAge?: number;
+  trace?: boolean;
+}) => {
   const [snapshots, setSnapshots] = useState<Array<RetainedSnapshot>>([]);
   const devToolsExtensions = (window as any).__REDUX_DEVTOOLS_EXTENSION__;
   const gotoSnapshot = useGotoRecoilSnapshot();
+  const snapshot: Snapshot = useRecoilSnapshot();
   let unsubscribe: any = null;
 
   const connect = () => {

@@ -1,1 +1,1 @@
-export { default as RecoilObserver } from './RecoilObserver/RecoilObserver';
+export { default as RecoilObserver } from './RecoilObserver';

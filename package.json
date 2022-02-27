@@ -8,7 +8,7 @@
   "repository": "https://github.com/theohagos/recoil-observer.git",
   "scripts": {
     "rollup": "rollup -c",
-    "test": "jest",
+    "test": "echo \"No test specified\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "lint:fix": "eslint --config .eslintrc.js src/**/*.{js,jsx,ts,tsx} --format table --fix",

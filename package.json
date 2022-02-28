@@ -3,7 +3,13 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
+  "keywords": [
+    "recoil",
+    "recoil devtool",
+    "recoil observer",
+    "devtool"
+  ],
   "description": "A recoil state observer through Redux devtool",
   "repository": "https://github.com/theohagos/recoil-observer.git",
   "scripts": {

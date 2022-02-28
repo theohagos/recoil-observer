@@ -40,8 +40,19 @@ import { RecoilObserver } from '@theohagos/recoil-observer';
 </RecoilRoot>
 ```
 
+## API
+
+| props          | description                            | default value | type    |
+| -------------- | -------------------------------------- | ------------- | ------- |
+| exclude           | List of recoil keys to exclude from Redux Devtool | []          | string[] |
+| name           | The name that will appear on Redux Devtool | Recoil State Observer          | string |
+| maxAge            | Redux Devtool prop              | 100          | number |
+| trace    | Redux Devtool prop     | false         | boolean |
+
+
+## Redux Devtool View
 Open up redux devtools and observe state changes in redux devtools, replay recoil state as well as time-travel
 
 
 
-![Screen Shot 2021-12-17 at 23 18 52](https://user-images.githubusercontent.com/3135968/146609246-5969debb-a85e-48a6-abb9-a99eb01a66e3.png)
+![Screen Shot 2021-12-17 at 23 18 52](readme.png)

@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {Snapshot, useGotoRecoilSnapshot, useRecoilSnapshot} from 'recoil';
 
 const withDevTool =
-  process.env.NODE_ENV === 'development' &&
-  typeof window !== 'undefined' &&
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__;
+    process.env.NODE_ENV === 'development' &&
+    typeof window !== 'undefined' &&
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__;
 let devTool: any = null;
 
 interface RetainedSnapshot {
@@ -13,11 +13,11 @@ interface RetainedSnapshot {
 }
 
 const RecoilObserver = ({
-  exclude = [],
-  name = 'Recoil State Observer',
-  maxAge = 100,
-  trace = true
-}: {
+                          exclude = [],
+                          name = 'Recoil State Observer',
+                          maxAge = 100,
+                          trace = false
+                        }: {
   exclude?: string[];
   name?: string;
   maxAge?: number;
@@ -48,6 +48,7 @@ const RecoilObserver = ({
       const {contents, state} = snapshot.getLoadable(node);
       const {key} = node;
 
+      console.log({state}, {contents}, {key})
       if (state === 'hasValue' && !key.includes('__withCallback') && !exclude.includes(key)) {
         const action = {
           type: key,
@@ -55,6 +56,7 @@ const RecoilObserver = ({
         };
 
         devTool.send(action.type, action);
+        console.log({action})
         save = true;
       }
     }
@@ -67,7 +69,7 @@ const RecoilObserver = ({
   useEffect(() => {
     if (withDevTool) {
       connect();
-      devTool.init('init', true);
+      devTool.init('init', null);
       dispatch(false);
     }
 
@@ -80,7 +82,6 @@ const RecoilObserver = ({
   useEffect(() => {
     if (withDevTool) {
       connect();
-      devTool.init('init', true);
 
       if (!unsubscribe) {
         unsubscribe = devTool?.subscribe(({type, payload, state}: any) => {
@@ -91,7 +92,7 @@ const RecoilObserver = ({
 
             snapshots.forEach(({snapshot: s}) => {
               if (s.getID() === snapshotId) {
-                gotoSnapshot(snapshot);
+                gotoSnapshot(s);
               }
             });
           }
@@ -100,11 +101,6 @@ const RecoilObserver = ({
 
       dispatch(true);
     }
-
-    return () => {
-      unsubscribe?.();
-      devToolsExtensions.disconnect();
-    };
   }, [snapshot]);
 
   return null;

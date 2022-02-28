@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {Snapshot, useGotoRecoilSnapshot, useRecoilSnapshot} from 'recoil';
 
 const withDevTool =
-    process.env.NODE_ENV === 'development' &&
-    typeof window !== 'undefined' &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__;
+  process.env.NODE_ENV === 'development' &&
+  typeof window !== 'undefined' &&
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__;
 let devTool: any = null;
 
 interface RetainedSnapshot {
@@ -13,11 +13,11 @@ interface RetainedSnapshot {
 }
 
 const RecoilObserver = ({
-                          exclude = [],
-                          name = 'Recoil State Observer',
-                          maxAge = 100,
-                          trace = false
-                        }: {
+  exclude = [],
+  name = 'Recoil State Observer',
+  maxAge = 100,
+  trace = false
+}: {
   exclude?: string[];
   name?: string;
   maxAge?: number;
@@ -47,8 +47,7 @@ const RecoilObserver = ({
     for (const node of snapshot.getNodes_UNSTABLE({isModified})) {
       const {contents, state} = snapshot.getLoadable(node);
       const {key} = node;
-
-      console.log({state}, {contents}, {key})
+      
       if (state === 'hasValue' && !key.includes('__withCallback') && !exclude.includes(key)) {
         const action = {
           type: key,
@@ -56,7 +55,6 @@ const RecoilObserver = ({
         };
 
         devTool.send(action.type, action);
-        console.log({action})
         save = true;
       }
     }
@@ -104,6 +102,6 @@ const RecoilObserver = ({
   }, [snapshot]);
 
   return null;
-}
+};
 
 export default RecoilObserver;

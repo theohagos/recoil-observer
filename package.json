@@ -3,10 +3,13 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "version": "1.0.4",
+  "version": "1.0.5",
   "keywords": [
     "recoil",
+    "recoil-devtool",
+    "recoil-logger",
     "recoil devtool",
+    "recoil-observer",
     "recoil observer",
     "devtool"
   ],

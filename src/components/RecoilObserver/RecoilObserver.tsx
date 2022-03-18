@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Snapshot, useGotoRecoilSnapshot, useRecoilSnapshot} from 'recoil';
 
 const withDevTool =
-  process.env.NODE_ENV === 'development' &&
+  process?.env?.NODE_ENV === 'development' &&
   typeof window !== 'undefined' &&
   (window as any).__REDUX_DEVTOOLS_EXTENSION__;
 let devTool: any = null;

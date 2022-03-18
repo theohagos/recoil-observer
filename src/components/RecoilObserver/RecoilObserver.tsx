@@ -32,7 +32,7 @@ const RecoilObserver = ({
   const connect = () => {
     if (!devTool) {
       setSnapshots([]);
-      devTool = devToolsExtensions.connect({
+      devTool = devToolsExtensions?.connect({
         name,
         maxAge,
         trace
@@ -54,7 +54,7 @@ const RecoilObserver = ({
           payload: {node, value: contents, snapshotId: snapshot.getID()}
         };
 
-        devTool.send(action.type, action);
+        devTool?.send(action.type, action);
         save = true;
       }
     }
@@ -67,13 +67,15 @@ const RecoilObserver = ({
   useEffect(() => {
     if (withDevTool) {
       connect();
-      devTool.init('init', null);
+      devTool?.init('init', null);
       dispatch(false);
     }
 
     return () => {
-      unsubscribe?.();
-      devToolsExtensions.disconnect();
+      if (withDevTool) {
+        unsubscribe?.();
+        devToolsExtensions?.disconnect();
+      }
     };
   }, []);
 

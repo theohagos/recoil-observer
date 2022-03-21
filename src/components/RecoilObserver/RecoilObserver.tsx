@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Snapshot, useGotoRecoilSnapshot, useRecoilSnapshot} from 'recoil';
 
-const nodeEnv = process && process.env ? process.env.NODE_ENV : '';
+const nodeEnv = window?.process?.env?.NODE_ENV;
 const withDevTool =
   nodeEnv === 'development' &&
   typeof window !== 'undefined' &&

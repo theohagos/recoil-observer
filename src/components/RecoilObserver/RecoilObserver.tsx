@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Snapshot, useGotoRecoilSnapshot, useRecoilSnapshot} from 'recoil';
 
+const nodeEnv = process && process.env ? process.env.NODE_ENV : '';
 const withDevTool =
-  process?.env?.NODE_ENV === 'development' &&
+  nodeEnv === 'development' &&
   typeof window !== 'undefined' &&
   (window as any).__REDUX_DEVTOOLS_EXTENSION__;
 let devTool: any = null;
@@ -47,7 +48,7 @@ const RecoilObserver = ({
     for (const node of snapshot.getNodes_UNSTABLE({isModified})) {
       const {contents, state} = snapshot.getLoadable(node);
       const {key} = node;
-      
+
       if (state === 'hasValue' && !key.includes('__withCallback') && !exclude.includes(key)) {
         const action = {
           type: key,

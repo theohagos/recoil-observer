@@ -7,7 +7,7 @@ describe('<RecoilObserver />', () => {
   test('component renders correctly', () => {
     render(
       <RecoilRoot>
-        <RecoilObserver />
+        <RecoilObserver env="development" />
       </RecoilRoot>
     );
   });

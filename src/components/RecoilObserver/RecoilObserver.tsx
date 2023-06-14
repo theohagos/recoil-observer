@@ -1,11 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {Snapshot, useGotoRecoilSnapshot, useRecoilSnapshot} from 'recoil';
+import { useEffect, useState } from 'react';
+import { Snapshot, useGotoRecoilSnapshot, useRecoilSnapshot } from 'recoil';
 
-const nodeEnv = window?.process?.env?.NODE_ENV;
-const withDevTool =
-  nodeEnv === 'development' &&
-  typeof window !== 'undefined' &&
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__;
 let devTool: any = null;
 
 interface RetainedSnapshot {
@@ -13,22 +8,27 @@ interface RetainedSnapshot {
   snapshot: Snapshot;
 }
 
-const RecoilObserver = ({
+function RecoilObserver({
+  env = 'development',
   exclude = [],
   name = 'Recoil State Observer',
   maxAge = 100,
-  trace = false
+  trace = false,
 }: {
+  env: string,
   exclude?: string[];
   name?: string;
   maxAge?: number;
   trace?: boolean;
-}) => {
+}) {
   const [snapshots, setSnapshots] = useState<Array<RetainedSnapshot>>([]);
   const devToolsExtensions = (window as any).__REDUX_DEVTOOLS_EXTENSION__;
   const gotoSnapshot = useGotoRecoilSnapshot();
   const snapshot: Snapshot = useRecoilSnapshot();
   let unsubscribe: any = null;
+  const withDevTool = env === 'development'
+      && typeof window !== 'undefined'
+      && (window as any).__REDUX_DEVTOOLS_EXTENSION__;
 
   const connect = () => {
     if (!devTool) {
@@ -36,7 +36,7 @@ const RecoilObserver = ({
       devTool = devToolsExtensions?.connect({
         name,
         maxAge,
-        trace
+        trace,
       });
     }
   };
@@ -45,14 +45,14 @@ const RecoilObserver = ({
     let save = false;
 
     // @ts-ignore
-    for (const node of snapshot.getNodes_UNSTABLE({isModified})) {
-      const {contents, state} = snapshot.getLoadable(node);
-      const {key} = node;
+    for (const node of snapshot.getNodes_UNSTABLE({ isModified })) {
+      const { contents, state } = snapshot.getLoadable(node);
+      const { key } = node;
 
       if (state === 'hasValue' && !key.includes('__withCallback') && !exclude.includes(key)) {
         const action = {
           type: key,
-          payload: {node, value: contents, snapshotId: snapshot.getID()}
+          payload: { node, value: contents, snapshotId: snapshot.getID() },
         };
 
         devTool?.send(action.type, action);
@@ -60,8 +60,8 @@ const RecoilObserver = ({
       }
     }
 
-    if (save && snapshots?.every(({snapshot: s}) => s.getID() !== snapshot.getID())) {
-      setSnapshots([...snapshots, {release: snapshot.retain(), snapshot}]);
+    if (save && snapshots?.every(({ snapshot: s }) => s.getID() !== snapshot.getID())) {
+      setSnapshots([...snapshots, { release: snapshot.retain(), snapshot }]);
     }
   };
 
@@ -85,13 +85,13 @@ const RecoilObserver = ({
       connect();
 
       if (!unsubscribe) {
-        unsubscribe = devTool?.subscribe(({type, payload, state}: any) => {
+        unsubscribe = devTool?.subscribe(({ type, payload, state }: any) => {
           if (type !== 'START' && payload.type === 'JUMP_TO_ACTION') {
             const {
-              payload: {snapshotId}
+              payload: { snapshotId },
             } = JSON.parse(state);
 
-            snapshots.forEach(({snapshot: s}) => {
+            snapshots.forEach(({ snapshot: s }) => {
               if (s.getID() === snapshotId) {
                 gotoSnapshot(s);
               }
@@ -105,6 +105,6 @@ const RecoilObserver = ({
   }, [snapshot]);
 
   return null;
-};
+}
 
 export default RecoilObserver;

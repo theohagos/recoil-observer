@@ -11,7 +11,8 @@
 
 # recoil-observer
 
-Recoil Observer through Redux DevTools
+Recoil Observer through Redux DevTools</br>
+This version updated to support React 18 and Recoil 0.0.7
 
 </div>
 
@@ -35,19 +36,20 @@ import { RecoilRoot } from 'recoil';
 import { RecoilObserver } from '@theohagos/recoil-observer';
 
 <RecoilRoot>
-    <RecoilObserver />
+    <RecoilObserver env="development" />
     <App />
 </RecoilRoot>
 ```
 
 ## API
 
-| props          | description                            | default value | type    |
-| -------------- | -------------------------------------- | ------------- | ------- |
-| exclude           | List of recoil keys to exclude from Redux Devtool | []          | string[] |
-| name           | The name that will appear on Redux Devtool | Recoil State Observer          | string |
-| maxAge            | Redux Devtool prop              | 100          | number |
-| trace    | Redux Devtool prop     | false         | boolean |
+| props   | description                                                                          | default value       | type      |
+|---------|--------------------------------------------------------------------------------------|---------------------|-----------|
+| env     | react env value (only gets mounted if value is development) this is a requried field | development         | string    |
+| exclude | List of recoil keys to exclude from Redux Devtool                                    | []                  | string[]? |
+| name    | The name that will appear on Redux Devtool                                           | Recoil State Observer | string?   |
+| maxAge  | Redux Devtool prop                                                                   | 100                 | number?   |
+| trace   | Redux Devtool prop                                                                   | false               | boolean?  |
 
 
 ## Redux Devtool View
